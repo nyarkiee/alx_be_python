@@ -1,32 +1,58 @@
-def perform_operation(num1: float, num2: float, operation: str):
-    """
-    Perform a basic arithmetic operation on two numbers.
+def display_menu():
+    print("Shopping List Manager")
+    print("1. Add Item")
+    print("2. Remove Item")
+    print("3. View List")
+    print("4. Exit")
 
-    Args:
-        num1 (float): First number.
-        num2 (float): Second number.
-        operation (str): One of 'add', 'subtract', 'multiply', 'divide'.
 
-    Returns:
-        float or str: Result of the arithmetic operation, or an
-        error message for invalid operation or division by zero.
-    """
+def add_item(shopping_list, item):
+    shopping_list.append(item)
+    print(f"'{item}' added to the shopping list.")
 
-    operation = operation.lower()
 
-    if operation == 'add':
-        return num1 + num2
-
-    elif operation == 'subtract':
-        return num1 - num2
-
-    elif operation == 'multiply':
-        return num1 * num2
-
-    elif operation == 'divide':
-        if num2 == 0:
-            return "Error: Division by zero is not allowed."
-        return num1 / num2
-
+def remove_item(shopping_list, item):
+    if item in shopping_list:
+        shopping_list.remove(item)
+        print(f"'{item}' removed from the shopping list.")
     else:
-        return "Error: Invalid operation. Choose add, subtract, multiply, or divide."
+        print(f"'{item}' is not in the shopping list.")
+
+
+def view_list(shopping_list):
+    if not shopping_list:
+        print("Your shopping list is empty.")
+    else:
+        print("Current Shopping List:")
+        for i, item in enumerate(shopping_list, start=1):
+            print(f"{i}. {item}")
+
+
+def main():
+    shopping_list = []
+
+    while True:
+        display_menu()
+        choice = input("Choose an option (1-4): ").strip()
+
+        if choice == "1":
+            item = input("Enter the item to add: ")
+            add_item(shopping_list, item)
+
+        elif choice == "2":
+            item = input("Enter the item to remove: ")
+            remove_item(shopping_list, item)
+
+        elif choice == "3":
+            view_list(shopping_list)
+
+        elif choice == "4":
+            print("Exiting Shopping List Manager.")
+            break
+
+        else:
+            print("Invalid choice. Please enter 1–4.")
+
+
+if __name__ == "__main__":
+    main()
